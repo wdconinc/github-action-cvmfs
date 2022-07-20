@@ -312,6 +312,10 @@ inputs:
     description: 'Set the local directory for storing special files (defaults to the cache directory).'
     required: false
     default: ''
+  cvmfs_version:
+    description: 'Version of cvmfs package to use (defaults to empty for latest release).'
+    required: false
+    default: ''
   cvmfs_ubuntu_deb_location:
     description: 'Location from where to download the Ubuntu deb package of CernVM-FS'
     required: false
@@ -418,6 +422,7 @@ runs:
         CVMFS_USER: ${{ inputs.cvmfs_user }}
         CVMFS_USYSLOG: ${{ inputs.cvmfs_usyslog }}
         CVMFS_WORKSPACE: ${{ inputs.cvmfs_workspace }}
+        CVMFS_VERSION: ${{ inputs.cvmfs_version }}
         CVMFS_UBUNTU_DEB_LOCATION: ${{ inputs.cvmfs_ubuntu_deb_location }}
         CVMFS_MACOS_PKG_LOCATION: ${{ inputs.cvmfs_macos_pkg_location }}
         CVMFS_CONFIG_PACKAGE: ${{ inputs.cvmfs_config_package }}
