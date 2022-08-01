@@ -12,8 +12,13 @@ jobs:
       with:
         key: cvmfs-apt-cache-${{ runner.os }}
         path: |
-          /var/cache/apt
+          ~/apt/archives/
+    - run: |
+        mkdir -p ~/apt/archives/
+        sudo cp ~/apt/archives/ /var/cache/apt/archives/
     - uses: ./
+    - run: |
+        cp /var/cache/apt/archives/*.deb ~/apt/archives/
     - name: Test CernVM-FS
       run: |
         echo "### Dump default.local ###"
