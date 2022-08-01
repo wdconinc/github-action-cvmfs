@@ -15,7 +15,7 @@ jobs:
           ~/apt/archives/
     - run: |
         mkdir -p ~/apt/archives/
-        sudo cp ~/apt/archives/ /var/cache/apt/archives/
+        sudo cp -r ~/apt/archives/ /var/cache/apt/archives/
     - uses: ./
     - run: |
         cp /var/cache/apt/archives/*.deb ~/apt/archives/
