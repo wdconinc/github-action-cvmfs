@@ -4,10 +4,10 @@
 if [ "$(uname)" == "Linux" ]; then
   CVMFS_RELEASE_LATEST=/var/cache/apt/archives/cvmfs-release-latest_all.deb
   if [ ! -f ${CVMFS_RELEASE_LATEST} ] ; then
-    curl -L -o ${CVMFS_RELEASE_LATEST} ${CVMFS_UBUNTU_DEB_LOCATION}
+    sudo curl -L -o ${CVMFS_RELEASE_LATEST} ${CVMFS_UBUNTU_DEB_LOCATION}
   fi
   sudo dpkg -i ${CVMFS_RELEASE_LATEST}
-  rm -f ${CVMFS_RELEASE_LATEST}
+  sudo rm -f ${CVMFS_RELEASE_LATEST}
   sudo apt-get -q update
   sudo apt-get -q -y install cvmfs
   if [ "${CVMFS_CONFIG_PACKAGE}" == "cvmfs-config-default" ]; then
