@@ -8,6 +8,11 @@ jobs:
         os: [ubuntu-latest, ubuntu-18.04, ubuntu-20.04]
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/cache@v3
+      with:
+        key: cvmfs-apt-cache-${{ runner.os }}
+        path: |
+          /var/cache/apt
     - uses: ./
     - name: Test CernVM-FS
       run: |
