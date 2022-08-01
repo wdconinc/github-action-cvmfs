@@ -331,6 +331,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/cache@v3
+      with:
+        key: cvmfs-apt-cache-${{ runner.os }}
+        path: |
+          /var/cache/apt
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
           echo "WARNING running local checkout of the action !"
