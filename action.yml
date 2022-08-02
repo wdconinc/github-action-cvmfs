@@ -344,9 +344,12 @@ runs:
         key: cvmfs-apt-cache-${{ steps.lsb-release.outputs.id }}-${{ steps.lsb-release.outputs.release }}-${{ hashFiles('action.yml') }}
         path: |
           ~/apt/archives/
+          ~/apt/lists/
     - run: |
         mkdir -p ~/apt/archives/
         sudo cp -r ~/apt/archives /var/cache/apt
+        mkdir -p ~/apt/lists/
+        sudo cp -r ~/apt/lists /var/lib/apt
       shell: bash
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
@@ -439,5 +442,7 @@ runs:
         CVMFS_MACOS_PKG_LOCATION: ${{ inputs.cvmfs_macos_pkg_location }}
         CVMFS_CONFIG_PACKAGE: ${{ inputs.cvmfs_config_package }}
     - run: |
+        ls -al /var/lib/apt/lists/
         cp /var/cache/apt/archives/*.deb ~/apt/archives/
+        cp /var/lib/apt/lists/*.list ~/apt/lists/
       shell: bash
