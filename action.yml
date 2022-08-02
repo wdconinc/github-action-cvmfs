@@ -331,11 +331,26 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - id: lsb-release
+      run: |
+        source /etc/lsb-release
+        echo "::set-output name=id::${DISTRIB_ID}"
+        echo "::set-output name=release::${DISTRIB_RELEASE}"
+        echo "::set-output name=codename::${DISTRIB_CODENAME}"
+        echo "::set-output name=description::${DISTRIB_DESCRIPTION}"
     - uses: actions/cache@v3
       with:
-        key: cvmfs-apt-cache-${{ runner.os }}
+        key: cvmfs-apt-cache-${{ runner.os }}-${{ steps.lsb-release.outputs.release }}
         path: |
-          /var/cache/apt/*.deb
+          ~/apt/archives/
+    - run: |
+        mkdir -p ~/apt/archives/
+        ls -al ~/apt/archives/
+        sudo cp -r ~/apt/archives/ /var/cache/apt/archives/
+    - uses: ./
+    - run: |
+        cp /var/cache/apt/archives/*.deb ~/apt/archives/
+        ls -al ~/apt/archives/
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
           echo "WARNING running local checkout of the action !"
