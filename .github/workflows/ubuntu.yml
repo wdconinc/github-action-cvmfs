@@ -8,19 +8,7 @@ jobs:
         os: [ubuntu-latest, ubuntu-18.04, ubuntu-20.04]
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/cache@v3
-      with:
-        key: cvmfs-apt-cache-${{ matrix.os }}
-        path: |
-          ~/apt/archives/
-    - run: |
-        mkdir -p ~/apt/archives/
-        ls -al ~/apt/archives/
-        sudo cp -r ~/apt/archives/ /var/cache/apt/archives/
     - uses: ./
-    - run: |
-        cp /var/cache/apt/archives/*.deb ~/apt/archives/
-        ls -al ~/apt/archives/
     - name: Test CernVM-FS
       run: |
         echo "### Dump default.local ###"
