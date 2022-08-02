@@ -7,7 +7,6 @@ if [ "$(uname)" == "Linux" ]; then
     sudo curl -L -o ${CVMFS_RELEASE_LATEST} ${CVMFS_UBUNTU_DEB_LOCATION}
   fi
   sudo dpkg -i ${CVMFS_RELEASE_LATEST}
-  sudo rm -f ${CVMFS_RELEASE_LATEST}
   sudo apt-get -q update
   sudo apt-get -q -y install cvmfs
   if [ "${CVMFS_CONFIG_PACKAGE}" == "cvmfs-config-default" ]; then
@@ -15,7 +14,6 @@ if [ "$(uname)" == "Linux" ]; then
   else
     curl -L -o cvmfs-config.deb ${CVMFS_CONFIG_PACKAGE}
     sudo dpkg -i cvmfs-config.deb
-    rm -f cvmfs-config.deb
   fi
 elif [ "$(uname)" == "Darwin" ]; then
   # Temporary fix for macOS until cvmfs 2.8 is released
