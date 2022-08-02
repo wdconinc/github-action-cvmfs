@@ -338,6 +338,7 @@ runs:
         echo "::set-output name=release::${DISTRIB_RELEASE}"
         echo "::set-output name=codename::${DISTRIB_CODENAME}"
         echo "::set-output name=description::${DISTRIB_DESCRIPTION}"
+      shell: bash
     - uses: actions/cache@v3
       with:
         key: cvmfs-apt-cache-${{ runner.os }}-${{ steps.lsb-release.outputs.release }}
@@ -347,10 +348,7 @@ runs:
         mkdir -p ~/apt/archives/
         ls -al ~/apt/archives/
         sudo cp -r ~/apt/archives/ /var/cache/apt/archives/
-    - uses: ./
-    - run: |
-        cp /var/cache/apt/archives/*.deb ~/apt/archives/
-        ls -al ~/apt/archives/
+      shell: bash
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
           echo "WARNING running local checkout of the action !"
@@ -441,3 +439,7 @@ runs:
         CVMFS_UBUNTU_DEB_LOCATION: ${{ inputs.cvmfs_ubuntu_deb_location }}
         CVMFS_MACOS_PKG_LOCATION: ${{ inputs.cvmfs_macos_pkg_location }}
         CVMFS_CONFIG_PACKAGE: ${{ inputs.cvmfs_config_package }}
+    - run: |
+        cp /var/cache/apt/archives/*.deb ~/apt/archives/
+        ls -al ~/apt/archives/
+      shell: bash
