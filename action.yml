@@ -444,5 +444,5 @@ runs:
     - run: |
         ls -al /var/lib/apt/lists/
         cp /var/cache/apt/archives/*.deb ~/apt/archives/
-        cp /var/lib/apt/lists/*.list ~/apt/lists/
+        cp /var/lib/apt/lists/*_dists_* ~/apt/lists/
       shell: bash
