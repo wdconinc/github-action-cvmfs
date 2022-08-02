@@ -341,7 +341,7 @@ runs:
       shell: bash
     - uses: actions/cache@v3
       with:
-        key: cvmfs-apt-cache-${{ runner.os }}-${{ steps.lsb-release.outputs.release }}
+        key: cvmfs-apt-cache-${{ steps.lsb-release.outputs.id }}-${{ steps.lsb-release.outputs.release }}
         path: |
           ~/apt/archives/
     - run: |
