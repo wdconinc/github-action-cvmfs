@@ -331,6 +331,26 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - id: lsb-release
+      run: |
+        source /etc/lsb-release
+        echo "::set-output name=id::${DISTRIB_ID}"
+        echo "::set-output name=release::${DISTRIB_RELEASE}"
+        echo "::set-output name=codename::${DISTRIB_CODENAME}"
+        echo "::set-output name=description::${DISTRIB_DESCRIPTION}"
+      shell: bash
+    - uses: actions/cache@v3
+      with:
+        key: cvmfs-apt-cache-${{ steps.lsb-release.outputs.id }}-${{ steps.lsb-release.outputs.release }}-${{ hashFiles('action.yml') }}
+        path: |
+          ~/apt/archives/
+          ~/apt/lists/
+    - run: |
+        mkdir -p ~/apt/archives/
+        sudo cp -r ~/apt/archives /var/cache/apt
+        mkdir -p ~/apt/lists/
+        sudo cp -r ~/apt/lists /var/lib/apt
+      shell: bash
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
           echo "WARNING running local checkout of the action !"
@@ -421,3 +441,8 @@ runs:
         CVMFS_UBUNTU_DEB_LOCATION: ${{ inputs.cvmfs_ubuntu_deb_location }}
         CVMFS_MACOS_PKG_LOCATION: ${{ inputs.cvmfs_macos_pkg_location }}
         CVMFS_CONFIG_PACKAGE: ${{ inputs.cvmfs_config_package }}
+    - run: |
+        ls -al /var/lib/apt/lists/
+        cp /var/cache/apt/archives/*.deb ~/apt/archives/
+        cp /var/lib/apt/lists/*_dists_* ~/apt/lists/
+      shell: bash
