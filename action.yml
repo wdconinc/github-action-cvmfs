@@ -335,7 +335,7 @@ runs:
       with:
         key: cvmfs-apt-cache-${{ runner.os }}
         path: |
-          /var/cache/apt
+          /var/cache/apt/*.deb
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
           echo "WARNING running local checkout of the action !"
