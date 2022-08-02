@@ -7,7 +7,7 @@ if [ "$(uname)" == "Linux" ]; then
     sudo curl -L -o ${CVMFS_RELEASE_LATEST} ${CVMFS_UBUNTU_DEB_LOCATION}
   fi
   sudo dpkg -i ${CVMFS_RELEASE_LATEST}
-  sudo apt-get -q update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/cernvm.list
+  sudo apt-get -q update
   sudo apt-get -q -y install cvmfs
   if [ "${CVMFS_CONFIG_PACKAGE}" == "cvmfs-config-default" ]; then
     sudo apt-get -q -y install cvmfs-config-default
