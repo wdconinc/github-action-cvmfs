@@ -341,13 +341,13 @@ runs:
       shell: bash
     - uses: actions/cache@v3
       with:
-        key: cvmfs-apt-cache-${{ steps.lsb-release.outputs.id }}-${{ steps.lsb-release.outputs.release }}
+        key: cvmfs-apt-cache-${{ steps.lsb-release.outputs.id }}-${{ steps.lsb-release.outputs.release }}-${{ hashFiles('action.yml') }}
         path: |
           ~/apt/archives/
     - run: |
         mkdir -p ~/apt/archives/
-        ls -al ~/apt/archives/
         sudo cp -r ~/apt/archives/ /var/cache/apt/archives/
+        ls -al /var/cache/apt/archives/
       shell: bash
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
@@ -440,6 +440,6 @@ runs:
         CVMFS_MACOS_PKG_LOCATION: ${{ inputs.cvmfs_macos_pkg_location }}
         CVMFS_CONFIG_PACKAGE: ${{ inputs.cvmfs_config_package }}
     - run: |
+        ls -al /var/cache/apt/archives/
         cp /var/cache/apt/archives/*.deb ~/apt/archives/
-        ls -al ~/apt/archives/
       shell: bash
