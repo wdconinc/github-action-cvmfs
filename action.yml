@@ -347,7 +347,6 @@ runs:
     - run: |
         mkdir -p ~/apt/archives/
         sudo cp -r ~/apt/archives /var/cache/apt
-        ls -al /var/cache/apt/archives/
       shell: bash
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
@@ -440,6 +439,5 @@ runs:
         CVMFS_MACOS_PKG_LOCATION: ${{ inputs.cvmfs_macos_pkg_location }}
         CVMFS_CONFIG_PACKAGE: ${{ inputs.cvmfs_config_package }}
     - run: |
-        ls -al /var/cache/apt/archives/
         cp /var/cache/apt/archives/*.deb ~/apt/archives/
       shell: bash
