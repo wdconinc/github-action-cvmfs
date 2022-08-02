@@ -346,7 +346,7 @@ runs:
           ~/apt/archives/
     - run: |
         mkdir -p ~/apt/archives/
-        sudo cp -t /var/cache/apt/archives/ ~/apt/archives/
+        sudo cp -rt /var/cache/apt/archives/ ~/apt/archives/
         ls -al /var/cache/apt/archives/
       shell: bash
     - run: |
