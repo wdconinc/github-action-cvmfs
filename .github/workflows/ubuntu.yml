@@ -14,8 +14,8 @@ jobs:
         path: |
           ~/apt/archives/
     - run: |
-        ls -al ~/apt/archives/
         mkdir -p ~/apt/archives/
+        ls -al ~/apt/archives/
         sudo cp -r ~/apt/archives/ /var/cache/apt/archives/
     - uses: ./
     - run: |
